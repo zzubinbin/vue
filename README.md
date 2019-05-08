@@ -1,4 +1,4 @@
-# sell
+# sell-vue
 
 > A Vue.js project
 

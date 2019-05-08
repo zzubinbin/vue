@@ -1,8 +1,8 @@
 {
-  "name": "sell",
+  "name": "sell-vue",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "iehuibinzzu@163.com",
+  "author": "wanghuibin <wanghuibin_zb@cmos.chinamobile.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
