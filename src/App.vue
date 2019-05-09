@@ -26,6 +26,7 @@ export default {
     'v-header': header
   }
 }
+
 </script>
 
 <style scoped>
