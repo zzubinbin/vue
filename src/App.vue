@@ -1,56 +1,23 @@
 <template>
   <div id="app">
-    <v-header></v-header>
-    <div class="tab">
-      <div class="tab-item">
-        <a v-link="{ path: '/goods'}">商品</a>
-      </div>
-      <div class="tab-item">
-        <a v-link="{ path: '/ratings'}">评论</a>
-      </div>
-      <div class="tab-item">
-        <a v-link="{ path: '/seller'}">商家</a>
-      </div>
-    </div>
-    <router-view></router-view>
-    <div class="content">
-      i am content
-    </div>
+    <img src="./assets/logo.png">
+    <router-view/>
   </div>
 </template>
 
 <script>
-import header from './components/header/header'
 export default {
-  components: {
-    'v-header': header
-  }
+  name: 'App'
 }
-
 </script>
 
-<style scoped>
-
-#app{
-}
-.tab{
-  display: flex;
-  width: 100%;
-  height: 40px;
-  line-height: 40px;
-  border-bottom: rgba(7 ,17 ,27 ,0.1);
-}
-.tab-item{
-  flex: 1;
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-}
-.tab-item a{
-  display: block;
-  text-decoration: none;
-  font-size: 14px;
-  color: rgb(77, 85 ,93 );
-}
-.tab-item a .active{
-  color: rgb(255 ,20 ,20 );
+  color: #2c3e50;
+  margin-top: 60px;
 }
 </style>
