@@ -11,19 +11,42 @@
         </div>
         <div class="text-time">{{ seller.description }}/{{ seller.deliveryTime }}分钟送达</div>
         <div v-if="seller.supports" class="text-cut">
-          <img src="../../assets/img/decrease_1@2x.png">
-          <span>{{ seller.supports[0].description }}</span>
-          <span class="cut-more">{{ seller.supports.length }}个<img width="15" height="15" src="../../assets/img/right.png" class="right"></span>
+          <div class="text-cut-left">
+            <img src="../../assets/img/decrease_1@2x.png">
+            <span>{{ seller.supports[0].description }}</span>
+          </div>
+          <div class="text-cut-right" @click="showDetial">
+            <span class="cut-more">{{ seller.supports.length }}个<img width="15" height="15" src="../../assets/img/right.png" class="right"></span>
+          </div>
         </div>
       </div>
     </div>
-    <div class="tips">
+    <div class="tips" @click="showDetial">
       <img width="22" height="12" src="../../assets/img/bulletin@2x.png" class="tips-brand">
       <span>{{ seller.bulletin }}</span>
       <img width="15" height="15" src="../../assets/img/right.png" class="right">
     </div>
-    <div class="background">
+    <div class="header-background">
       <img :src="seller.avatar" width="100%" height="100%">
+    </div>
+    <div v-show="detailShow" class="detail" >
+      <div class="detail-title">
+        {{ seller.name }}
+      </div>
+      <div class="detail-star">
+
+      </div>
+      <div class="detail-offer">
+        <div class="nomal-title">优惠信息</div>
+        <div></div>
+      </div>
+      <div class="detail-announcement">
+        <div class="nomal-title">商家公告</div>
+        <p>{{ seller.bulletin }}</p>
+      </div>
+      <div class="detail-close" @click="closeDetail">
+          X
+      </div>
     </div>
   </div>
 </template>
@@ -34,6 +57,22 @@ export default {
     seller: {
       type: Object
     }
+  },
+  data () {
+    return {
+      detailShow: false
+    }
+  },
+  methods: {
+    showDetial: function () {
+      this.detailShow = true
+    },
+    closeDetail: function () {
+      this.detailShow = false
+    }
+  },
+  created () {
+    this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
   }
 }
 </script>
@@ -46,7 +85,7 @@ export default {
   color: #fff;
   background: rgba(7,17,27,0.5);
 }
-.background {
+.header-background {
   position: absolute;
   top: 0;
   left: 0;
@@ -93,8 +132,11 @@ export default {
   font-size: 12px;
   font-weight: 200;
 }
+.text-cut-left{
+  display: inline-block;
+  margin-top: 10px;
+}
 .text-cut {
-  padding-top: 10px;
   height: 12px;
   line-height: 12px;
 }
@@ -104,17 +146,21 @@ export default {
   vertical-align: middle;
 }
 .text-cut span{
+  padding-top: 10px;
   padding-left: 4px;
   font-size: 10px;
   font-weight: 200;
 }
-.text-cut .cut-more{
+.text-cut-right {
+  display: inline;
   float: right;
-  text-align: center;
-  font-size: 10px;
   background-color: rgba(0,0,0,0.2);
   padding: 7px 8px;
   border-radius: 14px;
+}
+.text-cut-right .cut-more{
+  text-align: center;
+  font-size: 10px;
 }
 .text-cut .cut-more span{
   padding-right: 2px;
@@ -147,4 +193,14 @@ export default {
   -o-text-overflow:ellipsis;
 }
 
+.detail{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background: rgba(7,17,27,0.8);
+}
 </style>
