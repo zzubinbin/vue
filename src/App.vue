@@ -1,28 +1,65 @@
 <template>
   <div id="app">
-    <Header></Header>
-    <router-link to="/header">header</router-link>
-    <div class="tab"></div>
-    <div class="content"></div>
-    <router-view/>
+    <Header :seller="seller"></Header>
+    <div class="tab">
+      <div class="tab-item">
+        <router-link to="/goods">商品</router-link>
+      </div>
+      <div class="tab-item">
+        <router-link to="/ratings">评价</router-link>
+      </div>
+      <div class="tab-item">
+        <router-link to="/seller">商家</router-link>
+      </div>
+    </div>
+    <div class="content">
+      <router-view/>
+    </div>
   </div>
 </template>
 
 <script>
-import Header from '../components/header/header'
+import Header from './components/header/header'
+const ERR_OK = 0
+
 export default {
   name: 'App',
+  data () {
+    return {
+      seller: {}
+    }
+  },
+  created () {
+    this.$http.get('https://www.easy-mock.com/mock/5cd52a04c385bc03ca2648f1/seller').then((res) => {
+      res = res.body
+      if (res.errno === ERR_OK) {
+        this.seller = res.data
+        console.log(this.seller)
+      };
+    })
+  },
   components: { Header }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.tab{
+  display: flex;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
+  color: rgb(77,85,93);
+  border-bottom: 1px solid rgba(7,17,27,0.1);
+}
+.tab .tab-item{
+  flex: 1;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+.tab .tab-item a{
+  display: block;
+}
+.tab .tab-item .router-link-active{
+  color: rgb(240,20,20);
 }
 </style>
