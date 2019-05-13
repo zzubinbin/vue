@@ -22,6 +22,9 @@
       <span>{{ seller.bulletin }}</span>
       <img width="15" height="15" src="../../assets/img/right.png" class="right">
     </div>
+    <div class="background">
+      <img :src="seller.avatar" width="100%" height="100%">
+    </div>
   </div>
 </template>
 
@@ -37,9 +40,20 @@ export default {
 
 <style scoped>
 .header {
+  position: relative;
+  overflow: hidden;
   width: 100%;
   color: #fff;
   background: rgba(7,17,27,0.5);
+}
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  filter: blur(10px);
 }
 .content {
   display: flex;
