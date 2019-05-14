@@ -54,8 +54,8 @@
           <p>{{ seller.bulletin }}</p>
         </div>
       </div>
-      <div class="footer" @click="closeDetail">
-        <img src="../../assets/img/close.png" width="32" height="32">
+      <div class="footer">
+        <img src="../../assets/img/close.png" width="32" height="32"  @click="closeDetail">
       </div>
     </div>
   </div>
@@ -88,6 +88,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../../common/css/_base.scss";
 .header {
   position: relative;
   overflow: hidden;
@@ -213,6 +214,7 @@ export default {
     font-weight: 700;
     background: rgba(7,17,27,0.8);
     .wrapper {
+      min-height: 100vh;
       .detail-title {
         display: block;
         overflow: hidden;
@@ -256,9 +258,12 @@ export default {
           font-weight: 200;
           line-height: 24px;
         }
+        padding-bottom: 50px;
       }
     }
     .footer {
+      height: 50px;
+      margin-top: -50px;
       text-align: center;
       margin-bottom: 32px;
     }
