@@ -30,22 +30,32 @@
       <img :src="seller.avatar" width="100%" height="100%">
     </div>
     <div v-show="detailShow" class="detail" >
-      <div class="detail-title">
-        {{ seller.name }}
-      </div>
-      <div class="detail-star">
+      <div class="wrapper clearfix">
+        <div class="detail-title">
+          {{ seller.name }}
+        </div>
+        <div class="detail-star">
 
+        </div>
+        <div class="detail-offer">
+          <div class="normal-title">
+            <span class="normal-title-line"></span>
+            <span class="normal-title-text">优惠信息</span>
+            <span class="normal-title-line"></span>
+          </div>
+          <div></div>
+        </div>
+        <div class="detail-announcement">
+          <div class="normal-title">
+            <span class="normal-title-line"></span>
+            <span class="normal-title-text">商家公告</span>
+            <span class="normal-title-line"></span>
+          </div>
+          <p>{{ seller.bulletin }}</p>
+        </div>
       </div>
-      <div class="detail-offer">
-        <div class="nomal-title">优惠信息</div>
-        <div></div>
-      </div>
-      <div class="detail-announcement">
-        <div class="nomal-title">商家公告</div>
-        <p>{{ seller.bulletin }}</p>
-      </div>
-      <div class="detail-close" @click="closeDetail">
-          X
+      <div class="footer" @click="closeDetail">
+        <img src="../../assets/img/close.png" width="32" height="32">
       </div>
     </div>
   </div>
@@ -108,17 +118,17 @@ export default {
   padding-top: 24px;
   width: 70%;
 }
-.text-title{
+.text-title {
   height: 20px;
   padding-top: 2px;
   padding-bottom: 8px;
   line-height: 20px;
   font-size: 16px;
 }
-.text-title img{
+.text-title img {
   vertical-align: middle;
 }
-.text-title span{
+.text-title span {
   font-weight: bold;
 }
 .title-img {
@@ -128,11 +138,11 @@ export default {
   width: 30px;
   height: 18px;
 }
-.text-time{
+.text-time {
   font-size: 12px;
   font-weight: 200;
 }
-.text-cut-left{
+.text-cut-left {
   display: inline-block;
   margin-top: 10px;
 }
@@ -140,12 +150,12 @@ export default {
   height: 12px;
   line-height: 12px;
 }
-.text-cut img{
+.text-cut img {
   width: 12px;
   height: 12px;
   vertical-align: middle;
 }
-.text-cut span{
+.text-cut span {
   padding-top: 10px;
   padding-left: 4px;
   font-size: 10px;
@@ -158,14 +168,14 @@ export default {
   padding: 7px 8px;
   border-radius: 14px;
 }
-.text-cut-right .cut-more{
+.text-cut-right .cut-more {
   text-align: center;
   font-size: 10px;
 }
-.text-cut .cut-more span{
+.text-cut .cut-more span {
   padding-right: 2px;
 }
-.text-cut .cut-more img{
+.text-cut .cut-more img {
   width: 15px;
   height: 15px;
 }
@@ -186,14 +196,14 @@ export default {
 .tips .right {
   margin: 0px 12px 0px 4px;
 }
-.tips span{
+.tips span {
   overflow: hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
   -o-text-overflow:ellipsis;
 }
 
-.detail{
+.detail {
   position: fixed;
   top: 0;
   left: 0;
@@ -201,6 +211,56 @@ export default {
   height: 100%;
   width: 100%;
   overflow: auto;
+  font-size: 16px;
+  font-weight: 700;
   background: rgba(7,17,27,0.8);
+}
+.detail-title {
+  display: block;
+  overflow: hidden;
+  line-height: 16px;
+  margin-top: 64px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+.normal-title {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  text-align: center;
+}
+.normal-title .normal-title-line {
+  display: inline-block;
+  overflow: hidden;
+  width: 33%;
+  border-top: 1px solid #ccc ;
+}
+.normal-title .normal-title-text {
+  vertical-align: -6px;
+  padding: 0 2%;
+  width: 20%;
+}
+.detail-offer {
+  display: block;
+  overflow: hidden;
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+.detail-announcement {
+  display: block;
+  overflow: hidden;
+  width: 80%;
+  text-align: center;
+  margin: 0 auto;
+}
+.detail-announcement p {
+  font-size: 12px;
+  font-weight: 200;
+  line-height: 24px;
+}
+.footer {
+  text-align: center;
+  margin-bottom: 32px;
 }
 </style>
