@@ -87,180 +87,182 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .header {
   position: relative;
   overflow: hidden;
   width: 100%;
   color: #fff;
   background: rgba(7,17,27,0.5);
-}
-.header-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  filter: blur(10px);
-}
-.content {
-  display: flex;
-  width: 100%;
-  blur: 5px;
-}
-.content .content-avatar {
-  display: inline-block;
-  padding: 24px 16px 18px 24px;
-}
-.content-text {
-  display: inline-block;
-  padding-top: 24px;
-  width: 70%;
-}
-.text-title {
-  height: 20px;
-  padding-top: 2px;
-  padding-bottom: 8px;
-  line-height: 20px;
-  font-size: 16px;
-}
-.text-title img {
-  vertical-align: middle;
-}
-.text-title span {
-  font-weight: bold;
-}
-.title-img {
-  display: inline-block;
-}
-.title-img img {
-  width: 30px;
-  height: 18px;
-}
-.text-time {
-  font-size: 12px;
-  font-weight: 200;
-}
-.text-cut-left {
-  display: inline-block;
-  margin-top: 10px;
-}
-.text-cut {
-  height: 12px;
-  line-height: 12px;
-}
-.text-cut img {
-  width: 12px;
-  height: 12px;
-  vertical-align: middle;
-}
-.text-cut span {
-  padding-top: 10px;
-  padding-left: 4px;
-  font-size: 10px;
-  font-weight: 200;
-}
-.text-cut-right {
-  display: inline;
-  float: right;
-  background-color: rgba(0,0,0,0.2);
-  padding: 7px 8px;
-  border-radius: 14px;
-}
-.text-cut-right .cut-more {
-  text-align: center;
-  font-size: 10px;
-}
-.text-cut .cut-more span {
-  padding-right: 2px;
-}
-.text-cut .cut-more img {
-  width: 15px;
-  height: 15px;
-}
-.tips {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 28px;
-  font-size: 10px;
-  font-weight: 200;
-  line-height: 28px;
-  background-color: rgba(7,17,27,0.1);
-}
-.tips .tips-brand {
-  margin: 0px 4px 0px 12px;
-}
-.tips .right {
-  margin: 0px 12px 0px 4px;
-}
-.tips span {
-  overflow: hidden;
-  text-overflow:ellipsis;
-  white-space: nowrap;
-  -o-text-overflow:ellipsis;
+  .header-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: blur(10px);
+  }
+  .content {
+    display: flex;
+    width: 100%;
+    blur: 5px;
+    .content-avatar {
+      display: inline-block;
+      padding: 24px 16px 18px 24px;
+    }
+    .content-text {
+      display: inline-block;
+      padding-top: 24px;
+      width: 70%;
+      .text-title {
+        height: 20px;
+        padding-top: 2px;
+        padding-bottom: 8px;
+        line-height: 20px;
+        font-size: 16px;
+        img {
+          vertical-align: middle;
+        }
+        span {
+          font-weight: bold;
+        }
+        .title-img {
+          display: inline-block;
+          img {
+            width: 30px;
+            height: 18px;
+          }
+        }
+      }
+      .text-time {
+        font-size: 12px;
+        font-weight: 200;
+      }
+      .text-cut-left {
+        display: inline-block;
+        margin-top: 10px;
+      }
+      .text-cut {
+        height: 12px;
+        line-height: 12px;
+        img {
+          width: 12px;
+          height: 12px;
+          vertical-align: middle;
+        }
+        span {
+          padding-top: 10px;
+          padding-left: 4px;
+          font-size: 10px;
+          font-weight: 200;
+        }
+      }
+      .text-cut-right {
+        display: inline;
+        float: right;
+        background-color: rgba(0,0,0,0.2);
+        padding: 7px 8px;
+        border-radius: 14px;
+        .cut-more {
+          text-align: center;
+          font-size: 10px;
+          span {
+            padding-right: 2px;
+          }
+          img {
+            width: 15px;
+            height: 15px;
+          }
+        }
+      }
+    }
+  }
+  .tips {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 28px;
+    font-size: 10px;
+    font-weight: 200;
+    line-height: 28px;
+    background-color: rgba(7,17,27,0.1);
+    .tips-brand {
+      margin: 0px 4px 0px 12px;
+    }
+    .right {
+      margin: 0px 12px 0px 4px;
+    }
+    span {
+      overflow: hidden;
+      text-overflow:ellipsis;
+      white-space: nowrap;
+      -o-text-overflow:ellipsis;
+    }
+  }
+  .detail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    font-size: 16px;
+    font-weight: 700;
+    background: rgba(7,17,27,0.8);
+    .wrapper {
+      .detail-title {
+        display: block;
+        overflow: hidden;
+        line-height: 16px;
+        margin-top: 64px;
+        text-align: center;
+        margin-bottom: 16px;
+      }
+      .normal-title {
+        display: block;
+        overflow: hidden;
+        width: 100%;
+        text-align: center;
+        .normal-title-line {
+          display: inline-block;
+          overflow: hidden;
+          width: 33%;
+          border-top: 1px solid #ccc ;
+        }
+        .normal-title-text {
+          vertical-align: -6px;
+          padding: 0 2%;
+          width: 20%;
+        }
+      }
+      .detail-offer {
+        display: block;
+        overflow: hidden;
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .detail-announcement {
+        display: block;
+        overflow: hidden;
+        width: 80%;
+        text-align: center;
+        margin: 0 auto;
+        p {
+          font-size: 12px;
+          font-weight: 200;
+          line-height: 24px;
+        }
+      }
+    }
+    .footer {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+  }
 }
 
-.detail {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  height: 100%;
-  width: 100%;
-  overflow: auto;
-  font-size: 16px;
-  font-weight: 700;
-  background: rgba(7,17,27,0.8);
-}
-.detail-title {
-  display: block;
-  overflow: hidden;
-  line-height: 16px;
-  margin-top: 64px;
-  text-align: center;
-  margin-bottom: 16px;
-}
-.normal-title {
-  display: block;
-  overflow: hidden;
-  width: 100%;
-  text-align: center;
-}
-.normal-title .normal-title-line {
-  display: inline-block;
-  overflow: hidden;
-  width: 33%;
-  border-top: 1px solid #ccc ;
-}
-.normal-title .normal-title-text {
-  vertical-align: -6px;
-  padding: 0 2%;
-  width: 20%;
-}
-.detail-offer {
-  display: block;
-  overflow: hidden;
-  width: 80%;
-  margin: 0 auto;
-  text-align: center;
-}
-.detail-announcement {
-  display: block;
-  overflow: hidden;
-  width: 80%;
-  text-align: center;
-  margin: 0 auto;
-}
-.detail-announcement p {
-  font-size: 12px;
-  font-weight: 200;
-  line-height: 24px;
-}
-.footer {
-  text-align: center;
-  margin-bottom: 32px;
-}
 </style>
