@@ -30,31 +30,33 @@
       <img :src="seller.avatar" width="100%" height="100%">
     </div>
     <div v-show="detailShow" class="detail" >
-      <div class="wrapper clearfix">
-        <div class="detail-title">
-          {{ seller.name }}
-        </div>
-        <div class="detail-star">
-
-        </div>
-        <div class="detail-offer">
-          <div class="normal-title">
-            <span class="normal-title-line"></span>
-            <span class="normal-title-text">优惠信息</span>
-            <span class="normal-title-line"></span>
+      <div class="detail-wrapper clearfix">
+        <div class="detail-main">
+          <div class="detail-title">
+            {{ seller.name }}
           </div>
-          <div></div>
-        </div>
-        <div class="detail-announcement">
-          <div class="normal-title">
-            <span class="normal-title-line"></span>
-            <span class="normal-title-text">商家公告</span>
-            <span class="normal-title-line"></span>
+          <div class="detail-star">
+            <star :size="48" :score="seller.score"></star>
           </div>
-          <p>{{ seller.bulletin }}</p>
+          <div class="detail-offer">
+            <div class="normal-title">
+              <span class="normal-title-line"></span>
+              <span class="normal-title-text">优惠信息</span>
+              <span class="normal-title-line"></span>
+            </div>
+            <div></div>
+          </div>
+          <div class="detail-announcement">
+            <div class="normal-title">
+              <span class="normal-title-line"></span>
+              <span class="normal-title-text">商家公告</span>
+              <span class="normal-title-line"></span>
+            </div>
+            <p>{{ seller.bulletin }}</p>
+          </div>
         </div>
       </div>
-      <div class="footer">
+      <div class="detail-close">
         <img src="../../assets/img/close.png" width="32" height="32"  @click="closeDetail">
       </div>
     </div>
@@ -62,6 +64,7 @@
 </template>
 
 <script>
+import star from 'components/star/star'
 export default {
   props: {
     seller: {
@@ -80,6 +83,9 @@ export default {
     closeDetail: function () {
       this.detailShow = false
     }
+  },
+  components: {
+    star
   },
   created () {
     this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
@@ -206,6 +212,7 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
+    overflow: hidden;
     z-index: 100;
     height: 100%;
     width: 100%;
@@ -213,59 +220,71 @@ export default {
     font-size: 16px;
     font-weight: 700;
     background: rgba(7,17,27,0.8);
-    .wrapper {
-      min-height: 100vh;
-      .detail-title {
-        display: block;
-        overflow: hidden;
-        line-height: 16px;
+    .detail-wrapper {
+      min-height: 100%;
+      overflow: hidden;
+      .detail-main{
         margin-top: 64px;
-        text-align: center;
-        margin-bottom: 16px;
-      }
-      .normal-title {
-        display: block;
-        overflow: hidden;
-        width: 100%;
-        text-align: center;
-        .normal-title-line {
-          display: inline-block;
+        padding-bottom: 64px;
+        .detail-title {
+          display: block;
           overflow: hidden;
-          width: 33%;
-          border-top: 1px solid #ccc ;
+          line-height: 16px;
+          margin-top: 64px;
+          text-align: center;
         }
-        .normal-title-text {
-          vertical-align: -6px;
-          padding: 0 2%;
-          width: 20%;
+        .normal-title {
+          display: block;
+          overflow: hidden;
+          width: 100%;
+          text-align: center;
+          .normal-title-line {
+            display: inline-block;
+            overflow: hidden;
+            width: 33%;
+            border-top: 1px solid #ccc ;
+          }
+          .normal-title-text {
+            vertical-align: -6px;
+            padding: 0 2%;
+            width: 20%;
+          }
         }
-      }
-      .detail-offer {
-        display: block;
-        overflow: hidden;
-        width: 80%;
-        margin: 0 auto;
-        text-align: center;
-      }
-      .detail-announcement {
-        display: block;
-        overflow: hidden;
-        width: 80%;
-        text-align: center;
-        margin: 0 auto;
-        p {
-          font-size: 12px;
-          font-weight: 200;
-          line-height: 24px;
+        .detail-star {
+          display: block;
+          overflow: hidden;
+          height: 48px;
+          text-align: center;
+          margin-top: 16px;
+          margin-bottom: 28px;
         }
-        padding-bottom: 50px;
+        .detail-offer {
+          display: block;
+          overflow: hidden;
+          width: 80%;
+          margin: 0 auto;
+          text-align: center;
+        }
+        .detail-announcement {
+          display: block;
+          overflow: hidden;
+          width: 80%;
+          text-align: center;
+          margin: 0 auto;
+          p {
+            font-size: 12px;
+            font-weight: 200;
+            line-height: 24px;
+          }
+        }
       }
     }
-    .footer {
-      height: 50px;
-      margin-top: -50px;
-      text-align: center;
-      margin-bottom: 32px;
+    .detail-close {
+      position: relative;
+      width: 32px;
+      height: 32px;
+      margin: -64px auto 0 auto;
+      clear: both;
     }
   }
 }
