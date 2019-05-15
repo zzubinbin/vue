@@ -39,12 +39,15 @@
             <star :size="48" :score="seller.score"></star>
           </div>
           <div class="detail-offer">
-            <div class="normal-title">
+            <div class="normal-title mb-12">
               <span class="normal-title-line"></span>
               <span class="normal-title-text">优惠信息</span>
               <span class="normal-title-line"></span>
             </div>
-            <div></div>
+            <div class="offer-list">
+              <img src="../../assets/img/decrease_2@2x.png" width="16" height="16">
+              <span>{{ seller.supports[0].description }}</span>
+            </div>
           </div>
           <div class="detail-announcement">
             <div class="normal-title">
@@ -95,6 +98,9 @@ export default {
 
 <style scoped lang="scss">
 @import "../../common/css/_base.scss";
+.mb-12 {
+  margin-bottom: 12px;
+}
 .header {
   position: relative;
   overflow: hidden;
@@ -253,8 +259,8 @@ export default {
         .detail-star {
           display: block;
           overflow: hidden;
-          height: 48px;
           text-align: center;
+          padding: 2px 0;
           margin-top: 16px;
           margin-bottom: 28px;
         }
@@ -263,7 +269,13 @@ export default {
           overflow: hidden;
           width: 80%;
           margin: 0 auto;
-          text-align: center;
+          .offer-list {
+            display: block;
+            margin-bottom: 12px;
+          }
+          .offer-list:first-child {
+            margin-top: 24px;
+          }
         }
         .detail-announcement {
           display: block;

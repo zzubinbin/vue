@@ -20,6 +20,13 @@
 
 <script>
 import Header from './components/header/header'
+// 测试easy-mock基地址
+const MOCK = 'https://www.easy-mock.com/mock/5cd52a04c385bc03ca2648f1'
+// 正式环境地址
+// const REAL = 'https://www.easy-mock.com/mock/5cd52a04c385bc03ca2648f1'
+// 测试和正式切换
+const BASEURL = MOCK
+// 返回成功编码为0
 const ERR_OK = 0
 
 export default {
@@ -30,7 +37,7 @@ export default {
     }
   },
   created () {
-    this.$http.get('https://www.easy-mock.com/mock/5cd52a04c385bc03ca2648f1/seller').then((res) => {
+    this.$http.get(BASEURL + '/seller').then((res) => {
       res = res.body
       if (res.errno === ERR_OK) {
         this.seller = res.data
