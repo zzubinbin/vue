@@ -29,40 +29,44 @@
     <div class="header-background">
       <img :src="seller.avatar" width="100%" height="100%">
     </div>
-    <div v-show="detailShow" class="detail" >
-      <div class="detail-wrapper clearfix">
-        <div class="detail-main">
-          <div class="detail-title">
-            {{ seller.name }}
-          </div>
-          <div class="detail-star">
-            <star :size="48" :score="seller.score"></star>
-          </div>
-          <div class="detail-offer">
-            <div class="normal-title mb-12">
-              <span class="normal-title-line"></span>
-              <span class="normal-title-text">优惠信息</span>
-              <span class="normal-title-line"></span>
+    <transition name="fade">
+      <div v-show="detailShow" class="detail" transition="fade">
+        <div class="detail-wrapper clearfix">
+          <div class="detail-main">
+            <div class="detail-title">
+              {{ seller.name }}
             </div>
-            <div class="offer-list">
-              <img src="../../assets/img/decrease_2@2x.png" width="16" height="16">
-              <span>{{ seller.supports[0].description }}</span>
+            <div class="detail-star">
+              <star :size="48" :score="seller.score"></star>
             </div>
-          </div>
-          <div class="detail-announcement">
-            <div class="normal-title">
-              <span class="normal-title-line"></span>
-              <span class="normal-title-text">商家公告</span>
-              <span class="normal-title-line"></span>
+            <div class="detail-offer">
+              <div class="normal-title">
+                <span class="normal-title-line"></span>
+                <span class="normal-title-text">优惠信息</span>
+                <span class="normal-title-line"></span>
+              </div>
+              <ul v-if="seller.supports" class="offer-supports">
+                <li class="supports-list" v-for="(item, index) in seller.supports" :key="index">
+                  <span class="icon" :class="classMap[seller.supports[index].type]"></span>
+                  <span class="text">{{ seller.supports[index].description }}</span>
+                </li>
+              </ul>
             </div>
-            <p>{{ seller.bulletin }}</p>
+            <div class="detail-announcement">
+              <div class="normal-title">
+                <span class="normal-title-line"></span>
+                <span class="normal-title-text">商家公告</span>
+                <span class="normal-title-line"></span>
+              </div>
+              <p>{{ seller.bulletin }}</p>
+            </div>
           </div>
         </div>
+        <div class="detail-close">
+          <img src="../../assets/img/close.png" width="32" height="32"  @click="closeDetail">
+        </div>
       </div>
-      <div class="detail-close">
-        <img src="../../assets/img/close.png" width="32" height="32"  @click="closeDetail">
-      </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -98,9 +102,6 @@ export default {
 
 <style scoped lang="scss">
 @import "../../common/css/_base.scss";
-.mb-12 {
-  margin-bottom: 12px;
-}
 .header {
   position: relative;
   overflow: hidden;
@@ -202,10 +203,10 @@ export default {
     line-height: 28px;
     background-color: rgba(7,17,27,0.1);
     .tips-brand {
-      margin: 0px 4px 0px 12px;
+      margin: 0 4px 0 12px;
     }
     .right {
-      margin: 0px 12px 0px 4px;
+      margin: 0 12px 0 4px;
     }
     span {
       overflow: hidden;
@@ -218,17 +219,14 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
-    overflow: hidden;
+    overflow: auto;
     z-index: 100;
     height: 100%;
     width: 100%;
-    overflow: auto;
-    font-size: 16px;
-    font-weight: 700;
     background: rgba(7,17,27,0.8);
     .detail-wrapper {
       min-height: 100%;
-      overflow: hidden;
+      overflow: auto;
       .detail-main{
         margin-top: 64px;
         padding-bottom: 64px;
@@ -236,24 +234,27 @@ export default {
           display: block;
           overflow: hidden;
           line-height: 16px;
+          font-weight: 700;
           margin-top: 64px;
           text-align: center;
         }
         .normal-title {
-          display: block;
+          display: flex;
           overflow: hidden;
           width: 100%;
           text-align: center;
+          font-size: 14px;
+          margin: 28px auto 24px auto;
           .normal-title-line {
-            display: inline-block;
-            overflow: hidden;
-            width: 33%;
-            border-top: 1px solid #ccc ;
+            flex: 1;
+            position: relative;
+            top: -6px;
+            border-bottom: 1px solid #ccc ;
           }
           .normal-title-text {
-            vertical-align: -6px;
-            padding: 0 2%;
-            width: 20%;
+            flex: 1;
+            font-weight: 700;
+            padding: 0 12px;
           }
         }
         .detail-star {
@@ -262,26 +263,42 @@ export default {
           text-align: center;
           padding: 2px 0;
           margin-top: 16px;
-          margin-bottom: 28px;
         }
         .detail-offer {
           display: block;
           overflow: hidden;
           width: 80%;
           margin: 0 auto;
-          .offer-list {
+          .offer-supports {
             display: block;
-            margin-bottom: 12px;
-          }
-          .offer-list:first-child {
-            margin-top: 24px;
+            overflow: hidden;
+            .supports-list {
+              height: 16px;
+              line-height: 16px;
+              margin-top: 12px;
+              &:first-child {
+                margin-top: 0px;
+              }
+              .icon{
+                width: 16px;
+                height: 16px;
+                vertical-align: top;
+                display: inline-block;
+                background-repeat: no-repeat;
+                background-size: 16px 16px;
+              }
+              .text {
+                font-size: 12px;
+                font-weight: 200;
+                line-height: 12px;
+              }
+            }
           }
         }
         .detail-announcement {
           display: block;
           overflow: hidden;
           width: 80%;
-          text-align: center;
           margin: 0 auto;
           p {
             font-size: 12px;
@@ -300,5 +317,36 @@ export default {
     }
   }
 }
-
+.fade-enter,.fade-leave-to{
+  opacity: 0;
+}
+.fade-enter-active,.fade-leave-active{
+  transition: opacity .5s;
+}
+.decrease {
+  background-image: url("../../assets/img/decrease_2@2x.png");
+}
+.discount {
+  background-image: url("../../assets/img/discount_2@2x.png");
+}
+.special {
+  background-image: url("../../assets/img/special_2@2x.png");
+}
+.invoice {
+  background-image: url("../../assets/img/invoice_2@2x.png");
+}
+.guarantee {
+  background-image: url("../../assets/img/guarantee_2@2x.png");
+}
+.clearfix {
+  display: inline-block;
+}
+.clearfix:after {
+  display: block;
+  content: ".";
+  height: 0;
+  line-height: 0;
+  clear: both;
+  visibility: hidden;
+}
 </style>
