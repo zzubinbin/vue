@@ -37,6 +37,7 @@ export default {
     }
   },
   created () {
+    // resource  请求方式
     this.$http.get(BASEURL + '/seller').then((res) => {
       res = res.body
       if (res.errno === ERR_OK) {
@@ -44,6 +45,7 @@ export default {
         console.log(this.seller)
       };
     })
+    // axios请求方式
   },
   components: { Header }
 }
