@@ -1,5 +1,5 @@
 import axios from 'axios'
-// import qs from 'qs'
+import qs from 'qs'
 import Vue from 'vue'
 import { Toast } from 'vant'
 Vue.use(Toast)
@@ -62,33 +62,46 @@ function checkReload (res) {
     })
   }
 }
-var sellerUrl = {
-  get (url) {
+const sellerUrl = {
+  get (url, params) {
     if (!url) return
     return axios({
       method: 'get',
       url: BASEURL + url,
-      // params,
+      params,
       timeout: 5000
     }).then(checkStatus).then(checkReload).catch(checkReload)
   }
 }
 
-var movieUrl = {
-  // post(url, data) {
-  //     if (!url) return
-  //     return axios({
-  //         method: 'post',
-  //         url: prefix + url,
-  //         data: qs.stringify(data),
-  //         timeout: 30000,
-  //         headers: {
-  //             'X-Requested-With': 'XMLHttpRequest',
-  //             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-  //         }
-  //     }).then(checkStatus).then(checkReload)
-  // }
+const goodsUrl = {
+  get (url, params) {
+    if (!url) return
+    return axios({
+      method: 'get',
+      url: BASEURL + url,
+      params,
+      timeout: 5000
+    }).then(checkStatus).then(checkReload).catch(checkReload)
+  }
 }
 
-export {movieUrl}
-export {sellerUrl}
+const movieUrl = {
+  post (url, data) {
+    if (!url) return
+    return axios({
+      method: 'post',
+      url: BASEURL + url,
+      data: qs.stringify(data),
+      timeout: 30000,
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+      }
+    }).then(checkStatus).then(checkReload)
+  }
+}
+
+export { movieUrl }
+export { sellerUrl }
+export { goodsUrl }
