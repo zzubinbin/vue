@@ -11,15 +11,15 @@
     <div class="foods-wrapper">
       <ul class="wrapper-list" v-for="(item, index) in goods" :key="index">
         <p class="title">{{ item.name }}</p>
-        <li class="list-item" v-for="(item, index) in goods[index].foods" :key="index">
+        <li class="list-item" v-for="(value, index) in item.foods" :key="index">
           <div class="left-img">
-            <img :src="item.icon" alt="">
+            <img :src="value.icon" alt="">
           </div>
           <div class="right-main">
-            <p class="main-name">{{ item.name }}</p>
-            <p class="main-description">{{ item.description }}</p>
-            <p class="main-sell">月售{{ item.sellCount }}份  好评率{{ item.rating }}%</p>
-            <p class="main-price"><span class="price">￥{{ item.price }}</span><span class="old-price" v-show="item.oldPrice>0">￥{{ item.oldPrice }}</span></p>
+            <p class="main-name">{{ value.name }}</p>
+            <p class="main-description" v-show="value.description!==''">{{ value.description }}</p>
+            <p class="main-sell">月售{{ value.sellCount }}份<span class="w-20"></span>好评率{{ value.rating }}%</p>
+            <p class="main-price"><span class="price">￥{{ value.price }}</span><span class="old-price" v-show="value.oldPrice!=''">￥{{ value.oldPrice }}</span></p>
             <p class="main-operating">
               <span>-</span>
               <span>1</span>
@@ -112,18 +112,52 @@ export default {
       }
       .list-item {
         position: relative;
-        margin: 18px 18px 0 18px;
+        padding: 18px 18px 0 18px;
         border-bottom: 1px solid rgba(7,17,27,0.1);
         .left-img {
+          display: inline-block;
+          padding-right: 10px;
+          vertical-align: top;
           img{
+            width: 57px;
+            height: 57px;
           }
         }
         .right-main {
+          width: 70%;
+          display: inline-block;
+          padding-bottom: 18px;
           .main-name {
+            font-size: 14px;
+            color: rgb(7,17,27);
+            line-height: 14px;
           }
-          .main-description {}
-          .main-sell {}
-          .main-price {}
+          .main-description {
+            font-size: 10px;
+            color: rgb(147,153,159);
+            line-height: 10px;
+            padding-top: 8px;
+          }
+          .main-sell {
+            font-size: 10px;
+            color: rgb(147,153,159);
+            line-height: 10px;
+            padding: 8px 0;
+          }
+          .main-price {
+            .price {
+              font-size: 14px;
+              color: rgb(240,20,20);
+              font-weight: 700;
+              padding-right: 8px;
+            }
+            .old-price{
+              font-size: 10px;
+              color: rgb(147,153,159);
+              font-weight: 700;
+              text-decoration:line-through
+            }
+          }
           .main-operating{
             position: absolute;
             bottom: 18px;
@@ -149,5 +183,7 @@ export default {
 .guarantee {
   background-image: url("../../assets/img/guarantee_3@2x.png");
 }
-
+.w-20 {
+ width: 20px;
+}
 </style>
