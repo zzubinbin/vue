@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import ShoppingMall from '../components/shoppingMall/shoppingMall'
-import HelloWorld from '../components/HelloWorld'
+import shoppingMall from '../components/pages/shoppingMall'
 import goods from '../components/goods/goods'
 import ratings from '../components/ratings/ratings'
 import seller from '../components/seller/seller'
@@ -14,12 +13,7 @@ export default new Router({
     {
       path: '/',
       name: 'ShoppingMall',
-      component: ShoppingMall
-    },
-    {
-      path: '/hello',
-      name: 'HelloWorld',
-      component: HelloWorld
+      component: shoppingMall
     },
     {
       path: '/goods',
