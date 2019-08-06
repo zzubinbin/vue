@@ -7,9 +7,23 @@
     <link rel="stylesheet" type="text/css" href="src/common/css/font.css">
     <link rel="stylesheet" type="text/css" href="src/common/css/base.css">
     <link rel="stylesheet" type="text/css" href="src/common/css/reset.css">
+    <script type="text/javascript" src="src/main.js"></script>
     <title>vue</title>
   </head>
   <body>
+    <script>
+      window.onload = function () {
+        getRem(375, 10);
+      }
+      function getRem (pwidth, prem) {
+        var html = document.getElementsByTagName('html')[0]
+        var oWidth = document.body.clientWidth || document.documentElement.clientWidth
+        html.style.fontSize = oWidth / pwidth * prem + 'px'
+      }
+      window.onresize = function () {
+        getRem(375, 37.5)
+      }
+    </script>
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
