@@ -32,32 +32,77 @@
       </li>
     </ul>
     <div class="advertising">
-      <!--//这里是广告-->
+      <!--广告-->
+      <van-swipe :autoplay="2000" :show-indicators="false" class="swipe-list">
+        <van-swipe-item v-for="(banner,index) in slides" :key="index">
+          <img v-lazy="banner.image" width="100%" alt="">
+        </van-swipe-item>
+      </van-swipe>
     </div>
     <div class="recommend">
       <!--//这里是推荐-->
+      <div class="recommend-title">热门推荐</div>
+      <swiper :options="swiperOption" class="recommend-list">
+        <swiperSlide v-for="(item,index) in recommend" :key="index">
+          <div class="list-item">
+            <img :src="item.image" alt="" class="item-img">
+            <p>{{item.goodsName}}</p>
+            <p>￥{{item.mallPrice}}<span>(￥</span>{{item.price}}<span>)</span></p>
+          </div>
+        </swiperSlide>
+      </swiper>
+      <div class="list-item">
+        <img src="" alt="" class="item-img">
+        <span class="item-text"></span>
+      </div>
     </div>
     <div class="flow-list">
       <!--//这里是商城-->
     </div>
+    <swiperComponent></swiperComponent>
   </div>
 </template>
 
 <script>
-import { Http } from '../../severAPI'
+import 'swiper/dist/css/swiper.css'
+import {swiper, swiperSlide} from 'vue-awesome-swiper'
+import {Http} from '../../severAPI'
+import swiperComponent from '../swiper/swiper'
+
 export default {
+  components: {
+    swiper,
+    swiperSlide,
+    swiperComponent
+  },
   created () {
     Http('/swiper', 'get').then((res) => {
+      // swiper数据
       this.bannerPicArray = res.data.bannerPicArray
+      // 商品分类数据
       this.category = res.data.category
+      // 广告数据
+      this.slides = res.data.slides
+      // 推荐数据
+      this.recommend = res.data.recommend
     })
   },
   data () {
     return {
       msg: 'Shopping Mall',
       locationIcon: require('../../assets/img/setmap.png'),
+      // swiper数据
       bannerPicArray: [],
-      category: []
+      // 商品分类数据
+      category: [],
+      // 广告数据
+      slides: [],
+      // 推荐数据
+      recommend: [],
+      swiperOption: {
+        slidesPerView: 3,
+        spaceBetween: 30
+      }
     }
   }
 }
@@ -99,7 +144,7 @@ export default {
   flex-wrap: nowrap
   display: -webkit-flex
   background: #fff
-  margin: 0 .3rem .3rem .3rem
+  margin: 0 .3rem 0 .3rem
   font-size: .14rem
   .list-item
     padding: .3rem
@@ -109,4 +154,29 @@ export default {
     .item-img
       width: 100%
       padding-bottom: .3rem
+.advertising
+  display: block
+  overflow: hidden
+  width: 100%
+  height: 9rem
+.recommend
+  display: block
+  width: 100%
+  border-bottom: 1px solid #eee
+  .recommend-title
+    display: block
+    overflow: hidden
+    height: 1.5rem
+    line-height: 1.5rem
+    font-size: 1rem
+    padding-left: .5rem
+  .recommend-list
+    display: block
+    .list-item
+      width: 99%
+      border-right: 1px solid #eee
+      font-size: 12px
+      text-align: center
+      .item-img
+        width: 100%
 </style>
