@@ -20,7 +20,7 @@
       <!--//这里是轮播图-->
       <van-swipe :autoplay="2000" :show-indicators="false" class="swipe-list">
         <van-swipe-item v-for="(banner,index) in bannerPicArray" :key="index">
-          <img v-lazy="banner.imageUrl" width="100%" alt="">
+          <img v-lazy="banner.image" width="100%" alt="">
         </van-swipe-item>
       </van-swipe>
     </div>
@@ -33,11 +33,7 @@
     </ul>
     <div class="advertising">
       <!--广告-->
-      <van-swipe :autoplay="2000" :show-indicators="false" class="swipe-list">
-        <van-swipe-item v-for="(banner,index) in slides" :key="index">
-          <img v-lazy="banner.image" width="100%" alt="">
-        </van-swipe-item>
-      </van-swipe>
+      <img :src="slides" width="100%" alt="">
     </div>
     <div class="recommend">
       <!--//这里是推荐-->
@@ -51,15 +47,26 @@
           </div>
         </swiperSlide>
       </swiper>
-      <div class="list-item">
-        <img src="" alt="" class="item-img">
-        <span class="item-text"></span>
+    </div>
+    <div class="floor-list">
+      <!--//这里是商城-->
+      <div class="floor-one">
+        <img :src="floor1_0.image" alt="" width="100%">
+      </div>
+      <div>
+        <div class="floor-two">
+          <img :src="floor1_1.image" width="100%" alt="">
+        </div>
+        <div>
+          <img :src="floor1_2.image" width="100%" alt="">
+        </div>
       </div>
     </div>
-    <div class="flow-list">
-      <!--//这里是商城-->
+    <div class="floor-rule">
+      <div v-for="(item,index) in floor1" :key="index">
+        <img :src="item.image" width="100%" alt="">
+      </div>
     </div>
-    <!--<swiperComponent></swiperComponent>-->
   </div>
 </template>
 
@@ -78,19 +85,20 @@ export default {
   created () {
     Http('/swiper', 'get').then((res) => {
       // swiper数据
-      this.bannerPicArray = res.data.bannerPicArray
+      this.bannerPicArray = res.data.slides
       // 商品分类数据
       this.category = res.data.category
       // 广告数据
-      this.slides = res.data.slides
+      this.slides = res.data.advertesPicture.PICTURE_ADDRESS
       // 推荐数据
       this.recommend = res.data.recommend
+      this.floor_names = res.data.floorName
       // 第一层
       this.floor1 = res.data.floor1
       this.floor1_0 = this.floor1[0]
       this.floor1_1 = this.floor1[1]
       this.floor1_2 = this.floor1[2]
-      console.log(this.floor1_2)
+      console.log(res.data)
     })
   },
   data () {
@@ -102,13 +110,14 @@ export default {
       // 商品分类数据
       category: [],
       // 广告数据
-      slides: [],
+      slides: '',
       // 推荐数据
       recommend: [],
       swiperOption: {
         slidesPerView: 3,
         spaceBetween: 30
       },
+      floor_names: {},
       // 第一层
       floor1: [],
       floor1_0: [],
@@ -145,15 +154,15 @@ export default {
   width: 100%
   clear: both
   overflow: hidden
+  height: 8.5rem
   .swipe-list
     display: block
     width: 100%
-    height: 5rem
 .partition-list
   display: flex
   flex-direction: row
   flex-wrap: nowrap
-  display: -webkit-flex
+  height: 4.5rem
   background: #fff
   margin: 0 .3rem 0 .3rem
   font-size: .14rem
@@ -169,7 +178,7 @@ export default {
   display: block
   overflow: hidden
   width: 100%
-  height: 9rem
+  height: 1.7rem
 .recommend
   display: block
   width: 100%
@@ -179,15 +188,41 @@ export default {
     overflow: hidden
     height: 1.5rem
     line-height: 1.5rem
-    font-size: 1rem
+    font-size: 14px
     padding-left: .5rem
+    color: #e5017d
   .recommend-list
     display: block
     .list-item
       width: 99%
+      padding: 0 1rem
       border-right: 1px solid #eee
       font-size: 12px
+      line-height: 15px
       text-align: center
       .item-img
-        width: 100%
+        width: 80%
+.floor-list
+  display: flex
+  flex-direction: row
+  background: #fff
+  border-bottom: 1px solid #ddd
+  div
+    width: 10rem
+    box-sizing: border-box
+  .floor-one
+    border-right: 1px solid #ddd
+  .floor-two
+    border-bottom: 1px solid #ddd
+.floor-rule
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  background-color: #fff
+  div
+    box-sizing: border-box
+    width: 10rem
+    border-bottom: 1px solid #ddd
+  div:nth-child(odd)
+    border-right: 1px solid #ddd
 </style>
