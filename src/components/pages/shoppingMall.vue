@@ -63,7 +63,7 @@
       </div>
     </div>
     <div class="floor-rule">
-      <div v-for="(item,index) in floor1" :key="index">
+      <div v-for="(item,index) in floor1.slice(3)" :key="index">
         <img :src="item.image" width="100%" alt="">
       </div>
     </div>
