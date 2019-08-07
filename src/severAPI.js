@@ -5,14 +5,18 @@ import { Toast } from 'vant'
 Vue.use(Toast)
 
 axios.defaults.withCredentials = true
+
 // 测试easy-mock基地址
 const MOCK = 'https://www.easy-mock.com/mock/5cd52a04c385bc03ca2648f1'
+
 // 正式环境地址
 // const REAL = 'https://www.easy-mock.com/mock/5cd52a04c385bc03ca2648f1'
+
 // 测试和正式切换
 const BASEURL = MOCK
-// 返回成功编码为0
-const ERR_OK = 200
+
+// 返回成功编码为200
+const ERR_OK_200 = 200
 
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
@@ -43,7 +47,7 @@ axios.interceptors.response.use(function (response) {
 
 // 检查状态码
 function checkStatus (res) {
-  if (res.status === 200 || res.status === 304) {
+  if (res.status === ERR_OK_200) {
     return res.data
   } else {
     Toast.fail({
@@ -52,8 +56,10 @@ function checkStatus (res) {
     })
   }
 }
+
+// 检查返回code
 function checkReload (res) {
-  if (res.code === ERR_OK) {
+  if (res.code === ERR_OK_200) {
     return res
   } else {
     Toast.fail({
@@ -62,7 +68,23 @@ function checkReload (res) {
     })
   }
 }
-const sellerUrl = {
+
+// 封装axios方法
+export const Http = (url, type, data) => {
+  if (!url || !type) return
+  return axios({
+    method: type,
+    url: BASEURL + url,
+    data: qs.stringify(data),
+    timeout: 30000,
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    }
+  }).then(checkStatus).then(checkReload).catch(checkReload)
+}
+
+export const sellerUrl = {
   get (url, params) {
     if (!url) return
     return axios({
@@ -74,7 +96,7 @@ const sellerUrl = {
   }
 }
 
-const goodsUrl = {
+export const goodsUrl = {
   get (url, params) {
     if (!url) return
     return axios({
@@ -86,7 +108,7 @@ const goodsUrl = {
   }
 }
 
-const movieUrl = {
+export const movieUrl = {
   post (url, data) {
     if (!url) return
     return axios({
@@ -101,7 +123,3 @@ const movieUrl = {
     }).then(checkStatus).then(checkReload)
   }
 }
-
-export { movieUrl }
-export { sellerUrl }
-export { goodsUrl }

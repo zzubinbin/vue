@@ -20,13 +20,17 @@
       <!--//这里是轮播图-->
       <van-swipe :autoplay="2000" :show-indicators="false" class="swipe-list">
         <van-swipe-item v-for="(banner,index) in bannerPicArray" :key="index">
-          <img :src="banner.imageUrl" width="100%" alt="">
+          <img v-lazy="banner.imageUrl" width="100%" alt="">
         </van-swipe-item>
       </van-swipe>
     </div>
-    <div class="partition-list">
+    <ul class="partition-list">
       <!--//这里是类型分区-->
-    </div>
+      <li class="list-item" v-for="(item,index) in category" :key="index">
+        <img :src="item.image" alt="" class="item-img">
+        <span class="item-title">{{ item.mallCategoryName }}</span>
+      </li>
+    </ul>
     <div class="advertising">
       <!--//这里是广告-->
     </div>
@@ -40,16 +44,20 @@
 </template>
 
 <script>
+import { Http } from '../../severAPI'
 export default {
+  created () {
+    Http('/swiper', 'get').then((res) => {
+      this.bannerPicArray = res.data.bannerPicArray
+      this.category = res.data.category
+    })
+  },
   data () {
     return {
       msg: 'Shopping Mall',
       locationIcon: require('../../assets/img/setmap.png'),
-      bannerPicArray: [
-        {imageUrl: 'http://activity.cmcc-cs.cn/chop/res/newretail/activity/activity/e9a432ee0ae647f79befaa959d00542c.jpg'},
-        {imageUrl: 'http://activity.cmcc-cs.cn/chop/res/newretail/activity/activity/d88e31146be945b39f821ef8b4e537e9.png'},
-        {imageUrl: 'http://activity.cmcc-cs.cn/chop/res/newretail/activity/activity/973b264d818c40a99351cdad4233900b.jpg'}
-      ]
+      bannerPicArray: [],
+      category: []
     }
   }
 }
@@ -58,14 +66,15 @@ export default {
 .search-bar
   display: block
   height: 2.2rem
+  width: 100%
   background-color: #e5017d
   line-height: 2.2rem
   .search-input
     width: 100%
     height: 1.3rem
-    border-top: 0px
-    border-left: 0px
-    border-right: 0px
+    border-top: 0
+    border-left: 0
+    border-right: 0
     border-bottom: 1px solid #fff
     background-color: #e5017d
     color: #fff
@@ -78,8 +87,26 @@ export default {
 .swiper-body
   display: block
   width: 100%
+  clear: both
+  overflow: hidden
   .swipe-list
     display: block
     width: 100%
     height: 5rem
+.partition-list
+  display: flex
+  flex-direction: row
+  flex-wrap: nowrap
+  display: -webkit-flex
+  background: #fff
+  margin: 0 .3rem .3rem .3rem
+  font-size: .14rem
+  .list-item
+    padding: .3rem
+    font-size: .12rem
+    text-align: center
+    width: 20%
+    .item-img
+      width: 100%
+      padding-bottom: .3rem
 </style>
