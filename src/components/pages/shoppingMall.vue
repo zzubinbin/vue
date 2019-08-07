@@ -59,7 +59,7 @@
     <div class="flow-list">
       <!--//这里是商城-->
     </div>
-    <swiperComponent></swiperComponent>
+    <!--<swiperComponent></swiperComponent>-->
   </div>
 </template>
 
@@ -85,6 +85,12 @@ export default {
       this.slides = res.data.slides
       // 推荐数据
       this.recommend = res.data.recommend
+      // 第一层
+      this.floor1 = res.data.floor1
+      this.floor1_0 = this.floor1[0]
+      this.floor1_1 = this.floor1[1]
+      this.floor1_2 = this.floor1[2]
+      console.log(this.floor1_2)
     })
   },
   data () {
@@ -102,7 +108,12 @@ export default {
       swiperOption: {
         slidesPerView: 3,
         spaceBetween: 30
-      }
+      },
+      // 第一层
+      floor1: [],
+      floor1_0: [],
+      floor1_1: [],
+      floor1_2: []
     }
   }
 }
