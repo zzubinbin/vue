@@ -63,10 +63,11 @@
       </div>
     </div>
     <div class="floor-rule">
-      <div v-for="(item,index) in floor1" :key="index">
+      <div v-for="(item,index) in floor1.slice(3)" :key="index">
         <img :src="item.image" width="100%" alt="">
       </div>
     </div>
+    <FloorCompoent></FloorCompoent>
   </div>
 </template>
 
@@ -75,12 +76,14 @@ import 'swiper/dist/css/swiper.css'
 import {swiper, swiperSlide} from 'vue-awesome-swiper'
 import {Http} from '../../severAPI'
 import swiperComponent from '../swiper/swiper'
+import FloorCompoent from '../component/floor'
 
 export default {
   components: {
-    swiper,
-    swiperSlide,
-    swiperComponent
+    swiper: swiper,
+    swiperSlide: swiperSlide,
+    swiperComponent: swiperComponent,
+    FloorCompoent: FloorCompoent
   },
   created () {
     Http('/swiper', 'get').then((res) => {
@@ -221,6 +224,7 @@ export default {
   background-color: #fff
   div
     box-sizing: border-box
+    -webkit-box-sizing: border-box
     width: 10rem
     border-bottom: 1px solid #ddd
   div:nth-child(odd)
