@@ -50,22 +50,10 @@
     </div>
     <div class="floor-list">
       <!--//这里是商城-->
-      <div class="floor-one">
-        <img :src="floor1_0.image" alt="" width="100%">
-      </div>
-      <div>
-        <div class="floor-two">
-          <img :src="floor1_1.image" width="100%" alt="">
-        </div>
-        <div>
-          <img :src="floor1_2.image" width="100%" alt="">
-        </div>
-      </div>
-    </div>
-    <div class="floor-rule">
-      <div v-for="(item,index) in floor1.slice(3)" :key="index">
-        <img :src="item.image" width="100%" alt="">
-      </div>
+      <FloorCompoent
+        :floorData="floor1"
+      >
+      </FloorCompoent>
     </div>
   </div>
 </template>
@@ -75,12 +63,14 @@ import 'swiper/dist/css/swiper.css'
 import {swiper, swiperSlide} from 'vue-awesome-swiper'
 import {Http} from '../../severAPI'
 import swiperComponent from '../swiper/swiper'
+import FloorCompoent from '../component/floor'
 
 export default {
   components: {
     swiper,
     swiperSlide,
-    swiperComponent
+    swiperComponent,
+    FloorCompoent
   },
   created () {
     Http('/swiper', 'get').then((res) => {
@@ -180,7 +170,6 @@ export default {
   width: 100%
   height: 1.7rem
 .recommend
-  display: block
   width: 100%
   border-bottom: 1px solid #eee
   .recommend-title
@@ -194,8 +183,6 @@ export default {
   .recommend-list
     display: block
     .list-item
-      width: 99%
-      padding: 0 1rem
       border-right: 1px solid #eee
       font-size: 12px
       line-height: 15px
@@ -207,22 +194,4 @@ export default {
   flex-direction: row
   background: #fff
   border-bottom: 1px solid #ddd
-  div
-    width: 10rem
-    box-sizing: border-box
-  .floor-one
-    border-right: 1px solid #ddd
-  .floor-two
-    border-bottom: 1px solid #ddd
-.floor-rule
-  display: flex
-  flex-direction: row
-  flex-wrap: wrap
-  background-color: #fff
-  div
-    box-sizing: border-box
-    width: 10rem
-    border-bottom: 1px solid #ddd
-  div:nth-child(odd)
-    border-right: 1px solid #ddd
 </style>
