@@ -36,7 +36,6 @@ export default {
   watch: {
     floorData: function (val) {
       console.log(val)
-      console.log(this.floorData)
       this.floorData0 = this.floorData[0]
       this.floorData1 = this.floorData[1]
       this.floorData2 = this.floorData[2]
@@ -67,7 +66,6 @@ export default {
 .floor-rule {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   background-color: #fff;
 }
 .floor-rule div {
