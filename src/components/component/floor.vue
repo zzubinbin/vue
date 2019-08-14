@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="floor">
+      <div class="floor-title">{{title}}</div>
       <div class="floor-anomaly">
         <div class="floor-one"><img :src="floorData0.image" width="100%"/></div>
         <div>
@@ -21,7 +22,12 @@
 <script>
 export default {
   name: 'FloorCompoent',
-  props: ['floorData'],
+  props: {
+    floorData: {
+      type: Array
+    },
+    title: String
+  },
   data () {
     return {
       floorData0: {},
@@ -35,7 +41,6 @@ export default {
   },
   watch: {
     floorData: function (val) {
-      console.log(val)
       this.floorData0 = this.floorData[0]
       this.floorData1 = this.floorData[1]
       this.floorData2 = this.floorData[2]
@@ -53,7 +58,7 @@ export default {
   border-bottom: 1px solid #ddd;
 }
 .floor-anomaly div {
-  width: 10rem;
+  flex: 10rem;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
 }
@@ -71,10 +76,17 @@ export default {
 .floor-rule div {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  width: 10rem;
+  flex: 10rem;
   border-bottom: 1px solid #ddd;
 }
 .floor-rule div:nth-child(odd) {
   border-right: 1px solid #ddd;
+}
+.floor-title {
+  display: block;
+  font-size: .8rem;
+  line-height: 2rem;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
 }
 </style>

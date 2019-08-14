@@ -9,11 +9,12 @@ import {
   Col,
   Swipe,
   SwipeItem,
-  Lazyload
+  Lazyload,
+  List
 } from 'vant'
 import 'vant/lib/index.css'
 
-Vue.use(Button).use(Row).use(Col).use(SwipeItem).use(Swipe).use(Lazyload).use(VueResource, axios)
+Vue.use(Button).use(Row).use(Col).use(SwipeItem).use(Swipe).use(List).use(Lazyload).use(VueResource, axios)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

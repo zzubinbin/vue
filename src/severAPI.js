@@ -6,14 +6,15 @@ Vue.use(Toast)
 
 axios.defaults.withCredentials = true
 
+// 测试和正式切换
+const isMock = false
 // 测试easy-mock基地址
 const MOCK = 'https://www.easy-mock.com/mock/5cd52a04c385bc03ca2648f1'
 
 // 正式环境地址
-// const REAL = 'https://www.easy-mock.com/mock/5cd52a04c385bc03ca2648f1'
+const REAL = 'https://www.easy-mock.com/mock/5cd52a04c385bc03ca2648f1'
 
-// 测试和正式切换
-const BASEURL = MOCK
+const BASEURL = isMock ? MOCK : REAL
 
 // 返回成功编码为200
 const ERR_OK_200 = 200

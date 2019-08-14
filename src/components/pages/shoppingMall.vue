@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-show="isShow">
     <div class="search-bar">
       <!--这里是搜索-->
       <van-row>
@@ -48,12 +48,35 @@
         </swiperSlide>
       </swiper>
     </div>
-    <div class="floor-list">
       <!--//这里是商城-->
+    <div class="floor-list">
       <FloorCompoent
         :floorData="floor1"
+        :title="floor_names.floor1"
       >
       </FloorCompoent>
+      <FloorCompoent
+        :floorData="floor2"
+        :title="floor_names.floor2"
+      >
+      </FloorCompoent>
+      <FloorCompoent
+        :floorData="floor3"
+        :title="floor_names.floor3"
+      >
+      </FloorCompoent>
+    </div>
+    <div class="hot-area">
+      <div class="hot-title">热卖商品</div>
+      <div class="hot-list">
+        <van-list>
+          <van-row gutter="20">
+            <van-col span="12" v-for="(item,index) in hotGoods" :key="index">
+              <goodsInfo :goodsImage="item.image" :goodsName="item.name" :goodsPrice="item.price"></goodsInfo>
+            </van-col>
+          </van-row>
+        </van-list>
+      </div>
     </div>
   </div>
 </template>
@@ -64,16 +87,20 @@ import {swiper, swiperSlide} from 'vue-awesome-swiper'
 import {Http} from '../../severAPI'
 import swiperComponent from '../swiper/swiper'
 import FloorCompoent from '../component/floor'
+import {toMoney} from '../../common/js/index'
+import goodsInfo from '../component/goodsInfo'
 
 export default {
   components: {
     swiper,
     swiperSlide,
     swiperComponent,
-    FloorCompoent
+    FloorCompoent,
+    goodsInfo
   },
   created () {
     Http('/swiper', 'get').then((res) => {
+      this.isShow = true
       // swiper数据
       this.bannerPicArray = res.data.slides
       // 商品分类数据
@@ -85,14 +112,16 @@ export default {
       this.floor_names = res.data.floorName
       // 第一层
       this.floor1 = res.data.floor1
-      this.floor1_0 = this.floor1[0]
-      this.floor1_1 = this.floor1[1]
-      this.floor1_2 = this.floor1[2]
+      this.floor2 = res.data.floor2
+      this.floor3 = res.data.floor3
+      this.hotGoods = res.data.hotGoods
       console.log(res.data)
+      console.log('hotGoods' + res.data.hotGoods)
     })
   },
   data () {
     return {
+      isShow: false,
       msg: 'Shopping Mall',
       locationIcon: require('../../assets/img/setmap.png'),
       // swiper数据
@@ -107,12 +136,19 @@ export default {
         slidesPerView: 3,
         spaceBetween: 30
       },
+      // 楼层名字
       floor_names: {},
-      // 第一层
+      // 楼层内容
       floor1: [],
-      floor1_0: [],
-      floor1_1: [],
-      floor1_2: []
+      floor2: [],
+      floor3: [],
+      // 热卖商品
+      hotGoods: []
+    }
+  },
+  filter: {
+    moneyFilter (money) {
+      return toMoney(money)
     }
   }
 }
@@ -190,8 +226,15 @@ export default {
       .item-img
         width: 80%
 .floor-list
-  display: flex
-  flex-direction: row
+  display: block
+  width: 100%
   background: #fff
-  border-bottom: 1px solid #ddd
+.hot-area
+  text-align: center
+  font-size: 14px
+  height: 1.8rem
+  line-height: 1.8rem
+  .hot-title
+    font-size: .8rem
+    border-bottom: 1px solid #ddd
 </style>
