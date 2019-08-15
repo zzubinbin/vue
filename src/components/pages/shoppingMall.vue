@@ -1,5 +1,5 @@
 <template>
-  <div v-show="isShow">
+  <div v-show="isShow" style="width: 100%;overflow: hidden">
     <div class="search-bar">
       <!--这里是搜索-->
       <van-row>
@@ -190,7 +190,7 @@ export default {
   flex-wrap: nowrap
   height: 4.5rem
   background: #fff
-  margin: 0 .3rem 0 .3rem
+  margin: .3rem .3rem 0 .3rem
   font-size: .14rem
   .list-item
     padding: .3rem
@@ -198,7 +198,7 @@ export default {
     text-align: center
     width: 20%
     .item-img
-      width: 100%
+      width: 80%
       padding-bottom: .3rem
 .advertising
   display: block
@@ -232,9 +232,9 @@ export default {
 .hot-area
   text-align: center
   font-size: 14px
-  height: 1.8rem
-  line-height: 1.8rem
   .hot-title
+    height: 1.8rem
+    line-height: 1.8rem
     font-size: .8rem
     border-bottom: 1px solid #ddd
 </style>

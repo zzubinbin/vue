@@ -26,7 +26,11 @@ export default {
     floorData: {
       type: Array
     },
-    title: String
+    title: {
+      type: String,
+      default: ''
+    }
+    // onMinus: Function
   },
   data () {
     return {
@@ -58,7 +62,7 @@ export default {
   border-bottom: 1px solid #ddd;
 }
 .floor-anomaly div {
-  flex: 10rem;
+  flex: 50%;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
 }
@@ -76,7 +80,7 @@ export default {
 .floor-rule div {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  flex: 10rem;
+  flex: 50%;
   border-bottom: 1px solid #ddd;
 }
 .floor-rule div:nth-child(odd) {
