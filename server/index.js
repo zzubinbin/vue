@@ -42,7 +42,37 @@ console.log('[demo] start at port 3000 use node index.js')
 //   }
 // )
 
-function promiseClick () {
+function promiseClick() {
+  let p = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      var num = Math.ceil(Math.random() * 20)
+      console.log('随机数', num)
+      if (num <= 10) {
+        resolve(num)
+      } else {
+        reject('数字大于10即将执行失败回调')
+      }
+    }, 2000)
+  })
+  return p
+}
+
+function promiseClicks() {
+  let p = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      var num = Math.ceil(Math.random() * 20)
+      console.log('随机数', num)
+      if (num <= 10) {
+        resolve(num)
+      } else {
+        reject('数字大于10即将执行失败回调')
+      }
+    }, 2000)
+  })
+  return p
+}
+
+function promiseClickss() {
   let p = new Promise((resolve, reject) => {
     setTimeout(() => {
       var num = Math.ceil(Math.random() * 20)
@@ -65,3 +95,17 @@ promiseClick().then((data) => {
   console.log('catch到rejected失败回调')
   console.log('catch失败执行回调抛出失败原因:', reason)
 })
+
+// all的用法
+// 与then同级的另一个方法，all方法，该方法提供了并行执行异步操作的能力，
+// 并且在所有异步操作执行完后并且执行结果都是成功的时候才执行回调
+
+Promise
+  .all([promiseClick(), promiseClicks(), promiseClickss()])
+  .then(function (results) {
+    console.log(results)
+  })
+
+// race的用法
+// all是等所有的异步操作都执行完了再执行then方法，
+// 那么race方法就是相反的，谁先执行完成就先执行回调
