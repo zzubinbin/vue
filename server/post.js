@@ -1,5 +1,8 @@
 const Koa = require('koa')
 const app = new Koa()
+const bodyParser = require('koa-bodyparser')
+
+app.use(bodyParser())
 
 app.use(async (ctx) => {
   if (ctx.url === '/' && ctx.method === 'GET') {
@@ -24,8 +27,8 @@ app.use(async (ctx) => {
         </form>`
     ctx.body = htmls
   } else if (ctx.url === '/' && ctx.method === 'POST') {
-    let pastData = await parsePostData(ctx)
-    ctx.body = parseQuery(pastData)
+    let pastData = ctx.request.body
+    ctx.body = pastData
   } else {
     // 其他请求显示404画面
     ctx.body = '<h1>404!</h1>'
@@ -36,6 +39,8 @@ app.listen(3000, () => {
   console.log('server is starting at prot 3000')
 })
 
+
+// koa-bodyparser 中间件
 function parsePostData (ctx) {
   return new Promise((resolve, reject) => {
     try {
