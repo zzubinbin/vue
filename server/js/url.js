@@ -4,7 +4,7 @@ const app = new Koa()
 
 function render (page) {
   return new Promise((resolve, reject) => {
-    let pageUrl = `./page/${page}`
+    let pageUrl = `../page/${page}`
     fs.readFile(pageUrl, 'binary', (err, data) => {
       console.log(444)
       if (err) {
