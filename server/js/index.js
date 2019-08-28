@@ -126,3 +126,44 @@ app.listen(3000, () => {
 // all是等所有的异步操作都执行完了再执行then方法，
 // 那么race方法就是相反的，谁先执行完成就先执行回调
 // test
+
+// function getSomething () {
+//   return 'something'
+// }
+//
+// async function testAsync() {
+//   return 'hello async'
+// }
+//
+// async function test() {
+//   const v1 = await getSomething()
+//   const v2 = await testAsync()
+//   console.log(v1,v2)
+// }
+//
+// test()
+
+async function takeLongTime() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve("long_time_value1")
+    },1000)
+  })
+}
+
+async function takeLongTimes() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve("long_time_value2")
+    },2000)
+  })
+}
+
+async function test() {
+  const v = await takeLongTimes()
+  console.log(v)
+  const vm = await takeLongTime()
+  console.log(vm)
+}
+
+test()
