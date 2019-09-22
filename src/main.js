@@ -13,8 +13,9 @@ import {
   List
 } from 'vant'
 import 'vant/lib/index.css'
+import vuescroll from 'vuescroll'
 
-Vue.use(Button).use(Row).use(Col).use(SwipeItem).use(Swipe).use(List).use(Lazyload).use(VueResource, axios)
+Vue.use(Button).use(Row).use(Col).use(SwipeItem).use(Swipe).use(List).use(Lazyload).use(VueResource, axios).use(vuescroll)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
