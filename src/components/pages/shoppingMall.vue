@@ -99,7 +99,8 @@ export default {
     goodsInfo
   },
   created () {
-    Http('/swiper', 'get').then((res) => {
+    Http('http://localhost:8080/static/data.json', 'get').then((res) => {
+      console.log(res)
       this.isShow = true
       // swiper数据
       this.bannerPicArray = res.data.slides

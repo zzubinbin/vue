@@ -1,0 +1,55 @@
+// const http = require('http')
+// http.createServer((req, res) => {
+//   res.writeHead(200, {'Content-Type': 'text/html'})
+//   res.write('<h1>node.js haha heidfghg</h1>')
+//   res.end('<p>PCAT hash heiheisdf</p>')
+// }).listen(18889)
+// console.log('HTTP server is listing at port 18889')
+
+// const fs = require('fs')
+// fs.readFile('./a.text', 'UTF-8', (err, data) => {
+//   if (err) {
+//     console.log(err)
+//   } else {
+//     console.log(data)
+//   }
+// })
+//
+// function say (word) {
+//   console.log(word)
+// }
+//
+// function execute (someFunction, value) {
+//   someFunction(value)
+// }
+//
+// execute(say, 'Hello')
+//
+// var http = require("http");
+// http.createServer(function (request, response) {
+//   response.writeHead(200, {"Content-Type": "text/plain"});
+//   response.write("Hello World");
+//   response.end();
+// }).listen(8888);
+//
+// var http = require("http");
+//
+// function onRequest(request, response) {
+//   response.writeHead(200, {"Content-Type": "text/plain"});
+//   response.write("Hello World");
+//   response.end();
+// }
+//
+// http.createServer(onRequest).listen(8888);
+
+var http = require("http");
+
+function onRequest(request, response) {
+  console.log("Request received.");
+  response.writeHead(200, {"Content-Type": "text/plain"});
+  response.write("Hello World");
+  response.end();
+}
+
+http.createServer(onRequest).listen(8888);
+console.log("Server has started.");
