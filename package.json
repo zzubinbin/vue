@@ -15,8 +15,9 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "better-scroll": "^0.1.7",
+    "better-scroll": "^0.1.15",
     "less": "^3.9.0",
+    "mescroll.js": "^1.4.1",
     "qs": "^6.7.0",
     "stylus": "^0.54.5",
     "vant": "^1.6.24",

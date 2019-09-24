@@ -116,196 +116,196 @@
 </template>
 
 <script>
-  import 'swiper/dist/css/swiper.css'
-  import {swiper, swiperSlide} from 'vue-awesome-swiper'
-  import {Http} from '../../severAPI'
-  import swiperComponent from '../swiper/swiper'
-  import FloorCompoent from '../component/floor'
-  import {toMoney} from '../../common/js/index'
-  import goodsInfo from '../component/goodsInfo'
-  export default {
-    components: {
-      swiper,
-      swiperSlide,
-      swiperComponent,
-      FloorCompoent,
-      goodsInfo
-    },
-    props: {
-      lang: {
-        default: 'en'
-      }
-    },
-    mounted() {
-      console.log(this.$refs.op);
-      this.initDom()
-    },
-    data() {
-      const config = {};
-      const ops = {
-        vuescroll: {
-          mode: 'slide',
-          pullRefresh: {
-            enable: true
-          },
-          pushLoad: {
-            enable: true,
-            auto: true,
-            autoLoadDistance: 10
-          }
-        }
-      };
-      if (this.lang == 'zh') {
-        ops.vuescroll.pullRefresh.tips = {
-          deactive: '下拉刷新',
-          active: '释放刷新',
-          start: '刷新中...',
-          beforeDeactive: '刷新成功!'
-        };
-        ops.vuescroll.pushLoad.tips = {
-          deactive: '上拉加载',
-          active: '释放加载',
-          start: '加载中...',
-          beforeDeactive: '加载成功!'
-        };
-        config.animateTip = '您也可以通过slot来自定义不同的刷新/加载动画。';
-        config.animateAddr =
-          'https://vuescrolljs.yvescoding.org/zh/guide/slot.html#用法-2';
-      } else {
-        config.animateTip =
-          'You can also customize different refreh/load animations via slot.';
-        config.animateAddr =
-          'https://vuescrolljs.yvescoding.org/guide/slot.html#usage-2';
-      }
-      return {
-        ops,
-        config,
-        width: '',
-        itemAmount: 3,
-        refresh: 1,
-        noData: false,
-        triggerType: 'load',
-        isShow: false,
-        msg: 'Shopping Mall',
-        locationIcon: require('../../assets/img/setmap.png'),
-        // swiper数据
-        bannerPicArray: [],
-        // 商品分类数据
-        category: [],
-        // 广告数据
-        slides: '',
-        // 推荐数据
-        recommend: [],
-        swiperOption: {
-          slidesPerView: 3,
-          spaceBetween: 30
+import 'swiper/dist/css/swiper.css'
+import {swiper, swiperSlide} from 'vue-awesome-swiper'
+import {Http} from '../../severAPI'
+import swiperComponent from '../swiper/swiper'
+import FloorCompoent from '../component/floor'
+import {toMoney} from '../../common/js/index'
+import goodsInfo from '../component/goodsInfo'
+export default {
+  components: {
+    swiper,
+    swiperSlide,
+    swiperComponent,
+    FloorCompoent,
+    goodsInfo
+  },
+  props: {
+    lang: {
+      default: 'en'
+    }
+  },
+  mounted () {
+    console.log(this.$refs.op)
+    this.initDom()
+  },
+  data () {
+    const config = {}
+    const ops = {
+      vuescroll: {
+        mode: 'slide',
+        pullRefresh: {
+          enable: true
         },
-        // 楼层名字
-        floor_names: {},
-        // 楼层内容
-        floor1: [],
-        floor2: [],
-        floor3: [],
-        // 热卖商品
-        hotGoods: []
-      };
-    },
-    computed: {
-      amount() {
-        function getRandom() {
-          let str = '#';
-          for (let i = 0; i < 6; i++) {
-            str += Math.floor(Math.random() * 16).toString(16);
-          }
-          return str;
+        pushLoad: {
+          enable: true,
+          auto: true,
+          autoLoadDistance: 10
         }
-        return (
-          this.refresh &&
+      }
+    }
+    if (this.lang === 'zh') {
+      ops.vuescroll.pullRefresh.tips = {
+        deactive: '下拉刷新',
+        active: '释放刷新',
+        start: '刷新中...',
+        beforeDeactive: '刷新成功!'
+      }
+      ops.vuescroll.pushLoad.tips = {
+        deactive: '上拉加载',
+        active: '释放加载',
+        start: '加载中...',
+        beforeDeactive: '加载成功!'
+      }
+      config.animateTip = '您也可以通过slot来自定义不同的刷新/加载动画。'
+      config.animateAddr =
+          'https://vuescrolljs.yvescoding.org/zh/guide/slot.html#用法-2'
+    } else {
+      config.animateTip =
+          'You can also customize different refreh/load animations via slot.'
+      config.animateAddr =
+          'https://vuescrolljs.yvescoding.org/guide/slot.html#usage-2'
+    }
+    return {
+      ops,
+      config,
+      width: '',
+      itemAmount: 3,
+      refresh: 1,
+      noData: false,
+      triggerType: 'load',
+      isShow: false,
+      msg: 'Shopping Mall',
+      locationIcon: require('../../assets/img/setmap.png'),
+      // swiper数据
+      bannerPicArray: [],
+      // 商品分类数据
+      category: [],
+      // 广告数据
+      slides: '',
+      // 推荐数据
+      recommend: [],
+      swiperOption: {
+        slidesPerView: 3,
+        spaceBetween: 30
+      },
+      // 楼层名字
+      floor_names: {},
+      // 楼层内容
+      floor1: [],
+      floor2: [],
+      floor3: [],
+      // 热卖商品
+      hotGoods: []
+    }
+  },
+  computed: {
+    amount () {
+      function getRandom () {
+        let str = '#'
+        for (let i = 0; i < 6; i++) {
+          str += Math.floor(Math.random() * 16).toString(16)
+        }
+        return str
+      }
+      return (
+        this.refresh &&
           Array.apply(null, {
             length: this.itemAmount
           }).map(item => {
-            return getRandom();
+            return getRandom()
           })
-        );
-      }
-    },
-    methods: {
-      initDom () {
-        Http('http://localhost:8080/static/data.json', 'get').then((res) => {
-          console.log(res)
-          this.isShow = true
-          // swiper数据
-          this.bannerPicArray = res.data.slides
-          // 商品分类数据
-          this.category = res.data.category
-          // 广告数据
-          this.slides = res.data.advertesPicture.PICTURE_ADDRESS
-          // 推荐数据
-          this.recommend = res.data.recommend
-          this.floor_names = res.data.floorName
-          // 第一层
-          this.floor1 = res.data.floor1
-          this.floor2 = res.data.floor2
-          this.floor3 = res.data.floor3
-          this.hotGoods = res.data.hotGoods
-          console.log(res.data)
-          console.log('hotGoods' + res.data.hotGoods)
-        })
-      },
-      getClass(index) {
-        return ['child' + ((index % 7) + 1)];
-      },
-      handleRS(vsInstance, refreshDom, done) {
-        const vm = this;
-        setTimeout(() => {
-          this.refresh++;
-          done();
-        }, 1500);
-      },
-      handleLoadStart(vm, dom, done) {
-        setTimeout(() => {
-          const random = Math.floor(Math.random() * 2) + 1;
-          if (random == 1) {
-            this.noData = true;
-          } else {
-            this.noData = false;
-          }
-          done();
-        }, 600);
-      },
-      handleLBD(vm, loadDom, done) {
-        setTimeout(() => {
-          if (!this.noData) {
-            this.itemAmount += 2;
-          }
-          done();
-        }, 500);
-      },
-      handleRBD(vm, loadDom, done) {
-        setTimeout(() => {
-          done();
-        }, 500);
-      },
-      getBg() {
-        let str = '#';
-        let i = 6;
-        while (i--) {
-          str += Math.floor(Math.random() * 16).toString(16);
-        }
-        return {
-          backgroundColor: str
-        };
-      },
-      trigger() {
-        this.$refs['vs'].triggerRefreshOrLoad(this.triggerType);
-      }
-    },
-    filter: {
-      moneyFilter (money) {
-        return toMoney(money)
-      }
+      )
     }
-  };
+  },
+  methods: {
+    initDom () {
+      Http('http://localhost:8082/static/data.json', 'get').then((res) => {
+        console.log(res)
+        this.isShow = true
+        // swiper数据
+        this.bannerPicArray = res.data.slides
+        // 商品分类数据
+        this.category = res.data.category
+        // 广告数据
+        this.slides = res.data.advertesPicture.PICTURE_ADDRESS
+        // 推荐数据
+        this.recommend = res.data.recommend
+        this.floor_names = res.data.floorName
+        // 第一层
+        this.floor1 = res.data.floor1
+        this.floor2 = res.data.floor2
+        this.floor3 = res.data.floor3
+        this.hotGoods = res.data.hotGoods
+        console.log(res.data)
+        console.log('hotGoods' + res.data.hotGoods)
+      })
+    },
+    getClass (index) {
+      return ['child' + ((index % 7) + 1)]
+    },
+    handleRS (vsInstance, refreshDom, done) {
+      // const vm = this
+      setTimeout(() => {
+        this.refresh++
+        done()
+      }, 1500)
+    },
+    handleLoadStart (vm, dom, done) {
+      setTimeout(() => {
+        const random = Math.floor(Math.random() * 2) + 1
+        if (random === 1) {
+          this.noData = true
+        } else {
+          this.noData = false
+        }
+        done()
+      }, 600)
+    },
+    handleLBD (vm, loadDom, done) {
+      setTimeout(() => {
+        if (!this.noData) {
+          this.itemAmount += 2
+        }
+        done()
+      }, 500)
+    },
+    handleRBD (vm, loadDom, done) {
+      setTimeout(() => {
+        done()
+      }, 500)
+    },
+    getBg () {
+      let str = '#'
+      let i = 6
+      while (i--) {
+        str += Math.floor(Math.random() * 16).toString(16)
+      }
+      return {
+        backgroundColor: str
+      }
+    },
+    trigger () {
+      this.$refs['vs'].triggerRefreshOrLoad(this.triggerType)
+    }
+  },
+  filter: {
+    moneyFilter (money) {
+      return toMoney(money)
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
