@@ -1,28 +1,43 @@
-const Koa = require('koa')
-const app = new Koa()
+var server = require("./demo");
+server.start();
 
-app.use(async (ctx) => {
-  let url = ctx.url
-  // 从request中获取GET请求
-  let request = ctx.request
-  let reqQuery = request.query
-  let reqQuerystring = request.querystring
 
-  // 从上下文中直接获取
-  let ctxQuery = ctx.query
-  let ctxQuerystring = ctx.querystring
-  ctx.body = {
-    url,
-    reqQuery,
-    reqQuerystring,
-    ctxQuery,
-    ctxQuerystring
-  }
-})
 
-app.listen(3000, () => {
-  console.log('[demo] start at port 3000 use node index.js')
-})
+
+
+
+
+
+
+
+
+
+
+// const Koa = require('koa')
+// const app = new Koa()
+//
+// app.use(async (ctx) => {
+//   let url = ctx.url
+//   // 从request中获取GET请求
+//   let request = ctx.request
+//   let reqQuery = request.query
+//   let reqQuerystring = request.querystring
+//
+//   // 从上下文中直接获取
+//   let ctxQuery = ctx.query
+//   let ctxQuerystring = ctx.querystring
+//   ctx.body = {
+//     url,
+//     reqQuery,
+//     reqQuerystring,
+//     ctxQuery,
+//     ctxQuerystring
+//   }
+// })
+//
+// app.listen(3000, () => {
+//   console.log('[demo] start at port 3000 use node index.js')
+// })
 
 // let p = new Promise(function (resolve, reject) {
 //   setTimeout(() => {
@@ -143,27 +158,27 @@ app.listen(3000, () => {
 //
 // test()
 
-async function takeLongTime() {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve("long_time_value1")
-    },1000)
-  })
-}
-
-async function takeLongTimes() {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve("long_time_value2")
-    },2000)
-  })
-}
-
-async function test() {
-  const v = await takeLongTimes()
-  console.log(v)
-  const vm = await takeLongTime()
-  console.log(vm)
-}
-
-test()
+// async function takeLongTime() {
+//   return new Promise(resolve => {
+//     setTimeout(() => {
+//       resolve("long_time_value1")
+//     },1000)
+//   })
+// }
+//
+// async function takeLongTimes() {
+//   return new Promise(resolve => {
+//     setTimeout(() => {
+//       resolve("long_time_value2")
+//     },2000)
+//   })
+// }
+//
+// async function test() {
+//   const v = await takeLongTimes()
+//   console.log(v)
+//   const vm = await takeLongTime()
+//   console.log(vm)
+// }
+//
+// test()

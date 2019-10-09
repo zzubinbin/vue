@@ -42,14 +42,108 @@
 //
 // http.createServer(onRequest).listen(8888);
 
-var http = require("http");
+// var http = require("http");
+//
+// function onRequest(request, response) {
+//   console.log("Request received.");
+//   response.writeHead(200, {"Content-Type": "text/plain"});
+//   response.write("Hello World");
+//   response.end();
+// }
+//
+// http.createServer(onRequest).listen(8888);
+// console.log("Server has started.");
 
-function onRequest(request, response) {
-  console.log("Request received.");
-  response.writeHead(200, {"Content-Type": "text/plain"});
-  response.write("Hello World");
-  response.end();
+// 把函数当做参数传递
+// function say(word) {
+//   console.log(word);
+// }
+//
+// function execute(someFunction, value) {
+//   someFunction(value);
+// }
+//
+// execute(say, "Hello");
+
+// function execute(someFunction, value) {
+//   someFunction(value);
+// }
+//
+// execute(function (word) {
+//   console.log(word)
+// }, "Hello");
+
+// var http = require("http");
+// http.createServer(function (request, response) {
+//   response.writeHead(200, {"Content-Type": "text/plain"});
+//   response.write("Hello World");
+//   response.end();
+// }).listen(8888);
+
+// var http = require("http");
+//
+// function onRequest(request, response) {
+//   response.writeHead(200, {"Content-Type": "text/plain"});
+//   response.write("Hello World");
+//   response.end();
+// }
+//
+// http.createServer(onRequest).listen(8888);
+
+// const http = require("http");
+//
+// function onRequest(request, response) {
+//   // 处理收到的请求
+//   console.log("Request received.");
+//   response.writeHead(200, {"Content-Type": "text/plain"});
+//   response.write("Hello World");
+//   response.end();
+// }
+//
+// http.createServer(onRequest).listen(8888);
+// console.log("Server has started.");
+
+// const http = require("http");
+//
+// export const start = () => {
+//   function onRequest(request, response) {
+//     console.log("Request received.");
+//     response.writeHead(200, {"Content-Type": "text/plain"});
+//     response.write("Hello World");
+//     response.end();
+//   }
+//   http.createServer(onRequest).listen(8888);
+//   console.log("Server has started.");
+// }
+//
+// function start() {
+//   function onRequest(request, response) {
+//     console.log("Request received.");
+//     response.writeHead(200, {"Content-Type": "text/plain"});
+//     response.write("Hello World");
+//     response.end();
+//   }
+//
+//   http.createServer(onRequest).listen(8888);
+//   console.log("Server has started.");
+// }
+//
+// exports.start = start;
+
+var http = require("http");
+var url = require("url");
+
+function start() {
+  function onRequest(request, response) {
+    var pathname = url.parse(request.url).pathname;
+    console.log("Request for " + pathname + " received.");
+    response.writeHead(200, {"Content-Type": "text/plain"});
+    response.write("Hello World");
+    response.end();
+  }
+
+  http.createServer(onRequest).listen(8888);
+  console.log("Server has started.");
 }
 
-http.createServer(onRequest).listen(8888);
-console.log("Server has started.");
+exports.start = start;
