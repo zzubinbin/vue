@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="title">
-      这是列表啊
+    <div class="tabs">
+      tabs名字
     </div>
-    <div class="body">
+    <div class="wrapper">
       <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
         <van-list
           v-model="loading"
@@ -15,11 +15,11 @@
         >
           <van-cell
             v-for="(item,index) in saleDataList"
-            :key="item.normNumber+index"
+            :key="item+index"
             class="list-item"
             :title="index"
           >
-            {{item.orderName}}
+            {{item.normNumber}}
           </van-cell>
         </van-list>
       </van-pull-refresh>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { Http } from '../../severAPI'
+import axios from 'axios'
 import Vue from 'vue'
 import { PullRefresh, Toast, List, Cell } from 'vant'
 Vue.use(PullRefresh).use(Toast).use(List).use(Cell)
@@ -43,30 +43,39 @@ export default {
       offset: 15
     }
   },
-  mounted () {
-  },
   methods: {
+    /**
+    *  下拉刷新方法
+     */
     onRefresh () {
-      setTimeout(() => {
-        Toast.success('刷新成功')
-        this.isLoading = false
-      }, 500)
-    },
-    onLoad () {
+      // 调用请求数据方法
       this.getList()
-      console.log(this.saleDataList.length, '------------------------------')
-      // 数据全部加载完成
-      if (this.saleDataList.length >= 40) {
-        this.finished = true
-      }
     },
+    /**
+    *  上拉加载方法
+    *  页面打开时初始化会调用onLoad方法 如果想去掉初始化调用使用,给List添加属性immediate-check=false
+     */
+    onLoad () {
+      // 调用请求数据方法
+      this.getList()
+    },
+    /**
+    *  请求数据方法
+     */
     getList () {
-      Http('http://120.27.243.49:7300/mock/5da12f308c14ee0f50d37e46/cmeb/sale', 'get', {}).then((res) => {
-        console.log(res)
-        this.list = res.bean.orders
+      axios.post('http://120.27.243.49:7300/mock/5da12f308c14ee0f50d37e46/cmeb/list', {}).then((res) => {
+        console.log(res.data)
+        this.list = res.data.bean.orders
         this.saleDataList = this.saleDataList.concat(this.list)
         // 加载状态结束
         this.loading = false
+        this.isLoading = false
+        // 数据全部加载完成
+        if (this.saleDataList.length >= 40) {
+          this.finished = true
+        }
+      }).catch(function (error) {
+        console.log(error)
       })
     }
   }
@@ -74,27 +83,30 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .title {
+  .tabs {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 9;
-    background: yellow;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    background: #7e8c8d;
   }
-  .body {
+  .wrapper {
     margin-top: 20px;
-  }
-  .content{
-    .text{
-      font-size: 14px;
-      color: rgba(69,90,100,.6);
-    }
-    .list-item {
-      padding: 30px;
-      text-align: center;
-      background: #0088cc;
-      border-bottom: 1px solid red;
+    .content{
+      .text{
+        font-size: 14px;
+        color: rgba(69,90,100,.6);
+      }
+      .list-item {
+        padding: 30px;
+        text-align: center;
+        background: #0088cc;
+        border-bottom: 1px solid #FFFFFF;
+      }
     }
   }
 </style>
