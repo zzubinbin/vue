@@ -1,74 +1,100 @@
 <template>
   <div>
-    <div>
+    <div class="title">
       这是列表啊
     </div>
-    <refresh
-      :on-refresh="onRefresh"
-      :on-infinite="onInfinite"
-      :dataList="scrollData"
-    >
-      <div class="content">
-        <div v-for="(item,index) in scrollData" :key="item.goodsId+index">
-          {{item.goodsName}}
-          <img :src="item.image" alt="">
-        </div>
-      </div>
-    </refresh>
+    <div class="body">
+      <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+        <van-list
+          v-model="loading"
+          :finished="finished"
+          finished-text="没有更多了"
+          @load="onLoad"
+          :offset="offset"
+          class="content"
+        >
+          <van-cell
+            v-for="(item,index) in saleDataList"
+            :key="item.normNumber+index"
+            class="list-item"
+            :title="index"
+          >
+            {{item.orderName}}
+          </van-cell>
+        </van-list>
+      </van-pull-refresh>
+    </div>
   </div>
 </template>
 
 <script>
 import { Http } from '../../severAPI'
-import refresh from '../component/refresh'
+import Vue from 'vue'
+import { PullRefresh, Toast, List, Cell } from 'vant'
+Vue.use(PullRefresh).use(Toast).use(List).use(Cell)
 export default {
-  components: {
-    refresh
-  },
   data () {
     return {
-      scrollData: []
+      saleDataList: [],
+      list: [],
+      isLoading: false,
+      loading: false,
+      finished: false,
+      offset: 15
     }
   },
   mounted () {
-    this.initDom()
   },
   methods: {
-    initDom () {
-      Http('http://localhost:8082/static/data.json', 'get').then((res) => {
+    onRefresh () {
+      setTimeout(() => {
+        Toast.success('刷新成功')
+        this.isLoading = false
+      }, 500)
+    },
+    onLoad () {
+      this.getList()
+      console.log(this.saleDataList.length, '------------------------------')
+      // 数据全部加载完成
+      if (this.saleDataList.length >= 40) {
+        this.finished = true
+      }
+    },
+    getList () {
+      Http('http://120.27.243.49:7300/mock/5da12f308c14ee0f50d37e46/cmeb/sale', 'get', {}).then((res) => {
         console.log(res)
-        this.scrollData = res.data.recommend
+        this.list = res.bean.orders
+        this.saleDataList = this.saleDataList.concat(this.list)
+        // 加载状态结束
+        this.loading = false
       })
-    },
-    addDom () {
-      Http('http://localhost:8082/static/data.json', 'get').then((res) => {
-        console.log(res)
-        this.scrollData = this.scrollData.concat(res.data.recommend)
-      })
-    },
-    onRefresh (done) {
-      // 执行刷新方法
-      console.log('刷新')
-      this.initDom()
-      done() // call done
-    },
-    // 加载更多方法
-    onInfinite () {
-      const that = this
-      // let more = that.$el.querySelector('.load-more')
-      console.log('加载更多')
-      that.addDom()
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
+  .title {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9;
+    background: yellow;
+  }
+  .body {
+    margin-top: 20px;
+  }
   .content{
-    padding:0 15px;
     .text{
       font-size: 14px;
       color: rgba(69,90,100,.6);
+    }
+    .list-item {
+      padding: 30px;
+      text-align: center;
+      background: #0088cc;
+      border-bottom: 1px solid red;
     }
   }
 </style>

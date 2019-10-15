@@ -60,7 +60,7 @@ function checkStatus (res) {
 
 // 检查返回code
 function checkReload (res) {
-  if (res.code === ERR_OK_200) {
+  if (res.returnCode === '0') {
     return res
   } else {
     Toast.fail({
