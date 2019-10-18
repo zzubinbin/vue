@@ -49,6 +49,8 @@ export default {
      */
     onRefresh () {
       // 调用请求数据方法
+      this.saleDataList = []
+      this.finished = false
       this.getList()
     },
     /**
@@ -89,10 +91,11 @@ export default {
     left: 0;
     right: 0;
     z-index: 9;
-    height: 20px;
-    line-height: 20px;
+    height: 40px;
+    line-height: 40px;
     text-align: center;
     background: #7e8c8d;
+    color: #FFFFFF;
   }
   .wrapper {
     margin-top: 20px;
