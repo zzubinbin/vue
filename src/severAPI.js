@@ -9,7 +9,7 @@ axios.defaults.withCredentials = true
 // 测试和正式切换
 const isMock = true
 // 测试easy-mock基地址
-const MOCK = ''
+const MOCK = 'http://120.27.243.49:7300/mock/5da961ee8c14ee0f50d37e78/shopData'
 
 // 正式环境地址
 const REAL = 'https://www.easy-mock.com/mock/5cd52a04c385bc03ca2648f1'
@@ -82,7 +82,7 @@ export const Http = (url, type, data) => {
       'X-Requested-With': 'XMLHttpRequest',
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
     }
-  }).then(checkStatus).then(checkReload).catch(checkReload)
+  }).then(checkStatus)
 }
 
 export const sellerUrl = {

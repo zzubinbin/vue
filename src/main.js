@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import list from './components/pages/list'
+import shop from './components/pages/shop'
 import router from './router'
 import VueResource from 'vue-resource'
 import axios from 'axios'
@@ -23,6 +23,6 @@ new Vue({
   el: '#app',
   router,
   axios,
-  components: { list },
-  template: '<list/>'
+  components: { shop },
+  template: '<shop/>'
 })
