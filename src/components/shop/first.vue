@@ -23,5 +23,6 @@ export default {
 .first {
   display: flex;
   flex-wrap: wrap;
+  background: #FFFFFF;
 }
 </style>
