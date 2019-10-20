@@ -1,4 +1,5 @@
 import Vue from 'vue'
+// import shop from './components/pages/shop'
 import shop from './components/pages/shop'
 import router from './router'
 import VueResource from 'vue-resource'

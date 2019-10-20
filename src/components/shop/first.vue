@@ -1,6 +1,6 @@
 <template>
   <div class="first">
-    <One :data="product"></One>
+    <One :productData="item" :columnType="listData.column" v-for="(item,index) in listData.appmsgs" :key="item+index"></One>
   </div>
 </template>
 
@@ -10,11 +10,10 @@ export default {
   components: {
     One
   },
-  data () {
-    return {
-      product: {
-        type: 1
-      }
+  props: {
+    listData: {
+      type: Object,
+      required: true
     }
   }
 }

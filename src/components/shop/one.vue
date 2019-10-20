@@ -1,19 +1,38 @@
 <template>
-  <div class="product">
+  <div class="product" :style="{width: productWidth}">
     <div class="product-main">
-      <img src="http://activity.cmcc-cs.cn/chop/res/newretail/activity/activity/5ea416071fc74d90a9a1bdf77a354073.jpg" alt="">
-      <div class="main-title">华为荣耀20（牙妹）</div>
-      <!--<div class="main-summary">双卡双待，A13仿生芯片双卡双待，A13仿生芯片双卡双待，A13仿生芯片</div>-->
+      <img :src="productData.imgurl" alt="商品图标" :class="columnStyle">
+      <div class="main-title">{{productData.title}}</div>
+      <div class="main-summary">{{productData.summary}}</div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  name: 'one',
   props: {
-    type: {
-      type: Number,
-      default: 1
+    // 商品数据
+    productData: {
+      type: Object,
+      required: true
+    },
+    // 类型
+    columnType: {
+      type: String,
+      default: '1'
+    }
+  },
+  data () {
+    return {
+      productWidth: '50%',
+      columnStyle: 'product-img-2'
+    }
+  },
+  mounted() {
+    if (this.columnType === '4') {
+      this.productWidth = '23%'
+      this.columnStyle = 'product-img-4'
     }
   }
 }
@@ -21,11 +40,14 @@ export default {
 
 <style scoped lang="scss">
   .product {
-    width: 25%;
     .product-main {
       text-align: center;
       padding: 10px;
-      img {
+      .product-img-2 {
+        width: 100%;
+        height: 125px;
+      }
+      .product-img-4 {
         width: 79px;
         height: 79px;
       }
