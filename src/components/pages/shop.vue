@@ -1,16 +1,16 @@
 <template>
-  <div class="shop">
-    <onePlus></onePlus>
-    <First :listData="one"></First>
-    <First :listData="two"></First>
-    <First :listData="three"></First>
+  <div class="shop" v-if="componentData[10]">
+    <tabOne :tabData="componentData[10]"></tabOne>
+    <!--<First :listData="one"></First>-->
+    <!--<First :listData="two"></First>-->
+    <!--<First :listData="three"></First>-->
   </div>
 </template>
 
 <script>
 import { Http } from '../../severAPI'
 import First from '../shop/first'
-import onePlus from '../shop/onePlus'
+import tabOne from '../shop/tabOne'
 
 export default {
   data () {
@@ -24,7 +24,7 @@ export default {
   },
   components: {
     First,
-    onePlus
+    tabOne
   },
   mounted () {
     this.getShopData()

@@ -29,7 +29,7 @@ export default {
       columnStyle: 'product-img-2'
     }
   },
-  mounted() {
+  mounted () {
     if (this.columnType === '4') {
       this.productWidth = '23%'
       this.columnStyle = 'product-img-4'
