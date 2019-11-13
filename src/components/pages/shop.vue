@@ -1,51 +1,27 @@
 <template>
-  <div class="shop" v-if="componentData[10]">
-    <tabOne :tabData="componentData[10]"></tabOne>
-    <!--<First :listData="one"></First>-->
-    <!--<First :listData="two"></First>-->
-    <!--<First :listData="three"></First>-->
+  <div class="main">
+    我是main
+    <first></first>
+    <second></second>
   </div>
 </template>
 
 <script>
-import { Http } from '../../severAPI'
-import First from '../shop/first'
-import tabOne from '../shop/tabOne'
-
+import first from '../first'
+import second from '../second'
 export default {
-  data () {
-    return {
-      componentData: {},
-      one: {},
-      two: {},
-      three: {},
-      four: {}
-    }
-  },
+  name: 'main',
   components: {
-    First,
-    tabOne
-  },
-  mounted () {
-    this.getShopData()
-  },
-  methods: {
-    getShopData () {
-      Http('/componentData', 'get', {}).then((res) => {
-        console.log(res)
-        this.componentData = res.component
-        this.one = res.component[3]
-        this.two = res.component[4]
-        this.three = res.component[5]
-        this.four = res.component[6]
-      })
-    }
+    first,
+    second
   }
 }
 </script>
 
-<style scoped lang="scss">
-.shop {
-  background: #F6F6F6;
-}
+<style scoped>
+  .main {
+    width: 100%;
+    height: 500px;
+    background: red;
+  }
 </style>
